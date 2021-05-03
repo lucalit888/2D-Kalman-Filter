@@ -13,17 +13,17 @@ from KalmanFilter import KalmanFilter
 def main():
 
     # Create opencv video capture object
-    VideoCap = cv2.VideoCapture('video/randomball.avi')
+    VideoCap = cv2.VideoCapture('video/StackOverflow_2d_implementation')
 
     #Variable used to control the speed of reading the video
-    ControlSpeedVar = 100  #Lowest: 1 - Highest:100
+    ControlSpeedVar = 1  #Lowest: 1 - Highest:100
 
     HiSpeed = 100
 
     #Create KalmanFilter object KF
     #KalmanFilter(dt, u_x, u_y, std_acc, x_std_meas, y_std_meas)
 
-    KF = KalmanFilter(0.1, 1, 1, 1, 0.1,0.1)
+    KF = KalmanFilter(0.1, 1, 1, 1, 0.1, 0.1)
 
     debugMode=1
 
@@ -33,6 +33,8 @@ def main():
 
         # Detect object
         centers = detect(frame,debugMode)
+
+        print(centers)
 
         # If centroids are detected then track them
         if (len(centers) > 0):

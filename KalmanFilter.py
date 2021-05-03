@@ -10,7 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class KalmanFilter(object):
-    def __init__(self, dt, u_x,u_y, std_acc, x_std_meas, y_std_meas):
+    def __init__(self, dt, u_x, u_y, std_acc, x_std_meas, y_std_meas):
         """
         :param dt: sampling time (time for 1 cycle)
         :param u_x: acceleration in x-direction
@@ -23,7 +23,7 @@ class KalmanFilter(object):
         # Define sampling time
         self.dt = dt
 
-        # Define the  control input variables
+        # Define the control input variables
         self.u = np.matrix([[u_x],[u_y]])
 
         # Intial State

@@ -32,17 +32,21 @@ def detect(frame,debugMode):
     contours, _ = cv2.findContours(img_thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     # Set the accepted minimum & maximum radius of a detected object
-    min_radius_thresh= 3
+    min_radius_thresh= 1
     max_radius_thresh= 30
+    # print(contours)
+
 
     centers=[]
     for c in contours:
         # ref: https://docs.opencv.org/trunk/dd/d49/tutorial_py_contour_features.html
         (x, y), radius = cv2.minEnclosingCircle(c)
         radius = int(radius)
-
+        print(radius)
+        # print("radius: ", radius)
         #Take only the valid circle(s)
         if (radius > min_radius_thresh) and (radius < max_radius_thresh):
+            print("hello")
             centers.append(np.array([[x], [y]]))
     cv2.imshow('contours', img_thresh)
     return centers
