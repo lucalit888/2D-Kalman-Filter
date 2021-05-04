@@ -5,6 +5,7 @@
     Adapted from      : https://github.com/RahmadSadli/2-D-Kalman-Filter/blob/master/objTracking.py
     Date created      : 03/05/2021
     Python Version    : 3.7
+    To-Do             : plotting covariance
 '''
 
 import cv2
@@ -14,33 +15,42 @@ import numpy as np
 import matplotlib.pyplot as plt
 from collections import OrderedDict
 
+# Generates array of (x,y) pairs representing motion over time
+def generate_motion(total_time, delta_t, start_pos_x, start_pos_y):
+    i = 0
+    positions_over_time = []
+    x = start_pos_x; y = start_pos_y;
+    while i < total_time:
+        x = x + (i ** 2)/5
+        y = y + (i ** 2)/5
+        positions_over_time.append(np.array([[x], [y]]))
+        i += delta_t
+
+    return positions_over_time
+
+
 def main():
 
+    KF = KalmanFilter(0.5, 1, 1, 1, 0.1, 0.1)
 
-    KF = KalmanFilter(0.1, 1, 1, 1, 0.1, 0.1)
+    ax = plt.subplot(1, 1, 1)
 
-    n = 0
-    m = 0
-    positions_over_time = [np.array([[n], [m]])]
+    motion_positions = generate_motion(20, 0.5, 0, 0)
 
+    # Find max/min of x,y for axis limits
     x_coords = []
     y_coords = []
-    ax = plt.subplot(1, 1, 1)
-    plt.xlim([0, 250])
-    plt.ylim([0, 250])
+    for i in range(len(motion_positions)):
+        x_coords.append(motion_positions[i][0][0])
+        y_coords.append(motion_positions[i][1][0])
 
-    num_of_points = 25
+    plt.xlim([0, max(x_coords) + 10])
+    plt.ylim([0, max(y_coords) + 10])
 
-    for i in range(num_of_points):
-        n = n + 10
-        # m = m + (n*n/100)
-        m = m + 5
-        positions_over_time.append(np.array([[n], [m]]))
-
-    for i in range(num_of_points):
+    for i in range(len(motion_positions)):
 
         # Detect object
-        centers = positions_over_time[i]
+        centers = motion_positions[i]
 
         # If centroids are detected then track them
         if (len(centers) > 0):
@@ -64,6 +74,7 @@ def main():
             plt.legend(by_label.values(), by_label.keys())
             plt.pause(0.6)
 
+    plt.show()
 
 if __name__ == "__main__":
     # execute main
