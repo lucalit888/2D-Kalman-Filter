@@ -14,28 +14,36 @@ from KalmanFilter import KalmanFilter
 import numpy as np
 import matplotlib.pyplot as plt
 from collections import OrderedDict
+import math
 
 # Generates array of (x,y) pairs representing motion over time
-def generate_motion(total_time, delta_t, start_pos_x, start_pos_y):
+# Parameters:
+# total_time: total time elapsed
+# omega: radians per second
+# acceleration: meters per second^2
+def generate_motion(total_time, velocity, theta, omega, acceleration, delta_t, start_pos_x, start_pos_y):
     i = 0
     positions_over_time = []
     x = start_pos_x; y = start_pos_y;
     while i < total_time:
-        x = x + (i ** 2)/5
-        y = y + (i ** 2)/5
+        theta = theta + (omega * delta_t)
+        velocity = velocity + (acceleration * delta_t)
+        x = x + (velocity * math.cos(theta))
+        y = y + (velocity * math.sin(theta))
         positions_over_time.append(np.array([[x], [y]]))
         i += delta_t
+        print(x,y)
 
     return positions_over_time
 
 
 def main():
 
-    KF = KalmanFilter(0.5, 1, 1, 1, 0.1, 0.1)
+    KF = KalmanFilter(1, 1, 1, 1, 0.1, 0.1)
 
     ax = plt.subplot(1, 1, 1)
 
-    motion_positions = generate_motion(20, 0.5, 0, 0)
+    motion_positions = generate_motion(20, 2, math.pi/4, 2*math.pi/180, 0.5, 1, 0, 0)
 
     # Find max/min of x,y for axis limits
     x_coords = []
