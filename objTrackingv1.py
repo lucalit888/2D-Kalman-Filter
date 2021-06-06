@@ -15,6 +15,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from collections import OrderedDict
 import math
+from object import Object
+
+# create a new class
+
+# PL compute the distance between two points as euclidean space
 
 # Generates array of (x,y) pairs representing motion over time
 # Parameters:
@@ -30,20 +35,30 @@ def generate_motion(total_time, velocity, theta, omega, acceleration, delta_t, s
         velocity = velocity + (acceleration * delta_t)
         x = x + (velocity * math.cos(theta))
         y = y + (velocity * math.sin(theta))
+        print(x,y)
         positions_over_time.append(np.array([[x], [y]]))
         i += delta_t
-        print(x,y)
 
     return positions_over_time
 
 
 def main():
+    # ObstacleA = Object(2, math.pi/4, 2*math.pi/180, 0.5, 5, 5)
+    # ASV = Object(2, math.pi/4, 2*math.pi/180, 1, 0, 0)
+    #
+    # total_time = 20
+    # delta_t = 1
+    # i = 0
+    # while i < total_time:
+    #
+    #     i += delta_t
 
     KF = KalmanFilter(1, 1, 1, 1, 0.1, 0.1)
 
     ax = plt.subplot(1, 1, 1)
 
-    motion_positions = generate_motion(20, 2, math.pi/4, 2*math.pi/180, 0.5, 1, 0, 0)
+    # (2, math.pi / 4, 0.2 * math.pi / 180, 0.5, 5, 5)
+    motion_positions = generate_motion(20, 2, math.pi/4, 2*math.pi/180, 0.5, 1, 5, 5)
 
     # Find max/min of x,y for axis limits
     x_coords = []
@@ -59,6 +74,7 @@ def main():
 
         # Detect object
         centers = motion_positions[i]
+        # print(centers)
 
         # If centroids are detected then track them
         if (len(centers) > 0):
@@ -75,7 +91,9 @@ def main():
             ax.plot(x, y, "o", markerfacecolor="None", markeredgecolor='orange', label = "predicted")
 
             # Update
+            print(centers)
             (x1, y1) = KF.update(centers)
+            print("(x1,y1)", (x1, y1))
             ax.plot(x1, y1, "o", markerfacecolor="None", markeredgecolor='blue', label = "kalman")
             handles, labels = plt.gca().get_legend_handles_labels()
             by_label = OrderedDict(zip(labels, handles))
