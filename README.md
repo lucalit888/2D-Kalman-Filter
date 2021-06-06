@@ -1,4 +1,4 @@
-# 2D Kalman Filter for Obstacle Tracking and Prediction for Automous Surface Vehicles 
+# 2D Kalman Filter for Obstacle Tracking and Prediction for Autonomous Surface Vehicles 
 
 ## Author: Luca Chun Lun Lit
 ## Class: MATH 87 - Undergraduate Research as a Culminating Experience
