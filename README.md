@@ -1,6 +1,7 @@
 # 2D Kalman Filter for Obstacle Tracking and Prediction for Autonomous Surface Vehicles 
 
 ## Author: Luca Chun Lun Lit
+### Last Edited: June 8, 2021
 
 This research was conducted as a Mathematics undergradute culminating experience (MATH 87) under the supervision of Professor Alberto Quattrini Li, Professor of Computer Science at Dartmouth College, and Professor Feng Fu, Professor of Mathematics at Dartmouth College. I have worked closely and received a great deal of guidance from both Professors, as well as Ph.D. student Mingi Jeong. 
 
