@@ -15,8 +15,5 @@ This codebase generates a simulation of multiple-obstacle tracking and predictio
 This code was inspired by the following article: 
 https://machinelearningspace.com/object-tracking-2-d-object-tracking-using-kalman-filter-in-python/
 
-Requirements:
-- Python 3.7 
-- opencv 4.2
 
 
