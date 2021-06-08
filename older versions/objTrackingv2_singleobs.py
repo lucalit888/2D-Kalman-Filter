@@ -8,8 +8,6 @@
     To-Do             : plotting covariance
 '''
 
-import cv2
-from Detector import detect
 from KalmanFilter import KalmanFilter
 import numpy as np
 import matplotlib.pyplot as plt

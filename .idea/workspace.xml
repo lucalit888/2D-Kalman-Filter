@@ -2,11 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cfdbb9b1-0e75-49a8-8db5-74a8fe660fc0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/objTrackingv2_singleobs.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objTrackingv3_multiobs.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/object.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/objTrackingv1.py" beforeDir="false" afterPath="$PROJECT_DIR$/objTrackingv1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/deprecated_files/Detector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KalmanFilter.py" beforeDir="false" afterPath="$PROJECT_DIR$/KalmanFilter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KalmanFilter_Accel.py" beforeDir="false" afterPath="$PROJECT_DIR$/deprecated_files/KalmanFilter_Accel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StackOverflow_2d_implementation/2d-linear.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/linearBall.py" beforeDir="false" afterPath="$PROJECT_DIR$/deprecated_files/linearBall.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/objTracking.py" beforeDir="false" afterPath="$PROJECT_DIR$/older versions/objTracking.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/objTrackingv1.py" beforeDir="false" afterPath="$PROJECT_DIR$/older versions/objTrackingv1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/objTrackingv2_singleobs.py" beforeDir="false" afterPath="$PROJECT_DIR$/older versions/objTrackingv2_singleobs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/objTrackingv3_multiobs.py" beforeDir="false" afterPath="$PROJECT_DIR$/objTrackingv3_multiobs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/object.py" beforeDir="false" afterPath="$PROJECT_DIR$/object.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/video/linearball.avi" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/video/randomball.avi" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +53,10 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/deprecated_files" />
+      <recent name="$PROJECT_DIR$/older versions" />
+    </key>
   </component>
   <component name="RunManager" selected="Python.objTrackingv3_multiobs">
     <configuration name="objTrackingv1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -59,7 +71,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/objTrackingv1.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/older versions/objTrackingv1.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />

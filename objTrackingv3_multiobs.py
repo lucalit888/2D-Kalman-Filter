@@ -1,15 +1,11 @@
 '''
-    File name         : objTracking.py
-    Name              : Luca Lit
-    Description       : Main file for object tracking (currently deals with constant velocity)
-    Adapted from      : https://github.com/RahmadSadli/2-D-Kalman-Filter/blob/master/objTracking.py
-    Date created      : 03/05/2021
-    Python Version    : 3.7
-    To-Do             : plotting covariance
+    Author        : Luca Lit
+    File Purpose  : Main script object tracking
+    Last edited   : 06/08/2021
+    Description   : Multiple-obstacle tracking simulation with local to global reference frame conversion
+                    Obstacle movement supports nonlinearity (acceleration + angular velocity)
 '''
 
-import cv2
-from Detector import detect
 from KalmanFilter import KalmanFilter
 import numpy as np
 import matplotlib.pyplot as plt
@@ -17,15 +13,12 @@ from collections import OrderedDict
 import math
 from object import Object
 
-# create a new class
-
-# PL compute the distance between two points as euclidean space
-
 # Generates array of (x,y) pairs representing motion over time
 # Parameters:
 # total_time: total time elapsed
 # omega: radians per second
 # acceleration: meters per second^2
+
 def generate_motion(total_time, velocity, theta, omega, acceleration, delta_t, start_pos_x, start_pos_y):
     i = 0
     positions_over_time = []
@@ -40,10 +33,14 @@ def generate_motion(total_time, velocity, theta, omega, acceleration, delta_t, s
 
     return positions_over_time
 
+# Main script
 
 def main():
+    # Creating instances of Kalman Filters for predictions for both obstacles A and B
     KF_obsA = KalmanFilter(1, 1, 1, 1, 0.1, 0.1)
     KF_obsB = KalmanFilter(1, 1, 1, 1, 0.1, 0.1)
+
+    # Setting boundaries for the plot (will vary with changing of parameters)
     ax = plt.subplot(1, 2, 1)
     plt.xlim([-100, 260])
     plt.ylim([0, 450])
@@ -51,18 +48,21 @@ def main():
     plt.xlim([-100, 260])
     plt.ylim([0, 450])
 
+    # Instantiating three obstacles (Obstacle A, B and the ASV)
+    # Fields for Objects(velocity, angle of rotation, change in angle over time, acceleration, start position X and Y)
     ObstacleA = Object(2, math.pi/4, 2*math.pi/180, 0.2, 5, 5)
     ObstacleB = Object(2, -math.pi/4, math.pi/180, -0.5, 200, 100)
-    Obstacles = [ObstacleA, ObstacleB]
+    Obstacles = [ObstacleA, ObstacleB]                              # creating a list to store all objects (in case of large amount of objects)
     ASV = Object(2, math.pi/4, -2*math.pi/180, 1, 2, 80)
 
-    obstacle_positions_over_time= []
+    ############## While loop to simulate obstacle movement and tracking ##############
+    obstacle_positions_over_time = []
     ASV_positions_over_time = []
     total_time = 20
     delta_t = 1
     i = 0
     while i < total_time:
-        # Move both ObstacleA and ASV objects
+        # Move both Obstacles and ASV objects
         for obstacle in Obstacles:
             obstacle.move(delta_t)
             obstacle.move(delta_t)
@@ -78,6 +78,7 @@ def main():
                 label="obstacle B actual")
         ax.plot(ASV_newpos[0], ASV_newpos[1], "o", markerfacecolor="red", alpha=0.5, markeredgecolor='None',
                 label="ASV position")
+
         ax2.plot(ASV_newpos[0], ASV_newpos[1], "o", markerfacecolor="red", alpha=0.5, markeredgecolor='None',
                 label="ASV position")
 
@@ -113,19 +114,29 @@ def main():
         ax2.plot(x_B, y_B, "o", markerfacecolor="None", markeredgecolor='orange', label = "predicted Obs.B")
 
         ############## Running Kalman Filter to update centroid ##############
-        (x1_A, y1_A) = KF_obsA.update(np.array([[P_G_A[0]], [P_G_A[1]]]))
-        (x1_B, y1_B) = KF_obsB.update(np.array([[P_G_B[0]], [P_G_B[1]]]))
+        (x1_A, y1_A) = KF_obsA.KF_adjust(np.array([[P_G_A[0]], [P_G_A[1]]]))
+        (x1_B, y1_B) = KF_obsB.KF_adjust(np.array([[P_G_B[0]], [P_G_B[1]]]))
 
         ax2.plot(x1_A, y1_A, "o", markerfacecolor="None", markeredgecolor='blue', label = "Kalman Obs.A")
         ax2.plot(x1_B, y1_B, "o", markerfacecolor="None", markeredgecolor='teal', label = "Kalman Obs.B")
 
         handles, labels = plt.gca().get_legend_handles_labels()
         by_label = OrderedDict(zip(labels, handles))
-        plt.legend(by_label.values(), by_label.keys())
         plt.pause(0.6)
+        ax2.legend(by_label.values(), by_label.keys())
+
         i += delta_t
 
+        # prevent duplication of legend items
+        legend_without_duplicate_labels(ax)
+
     plt.show()
+
+# adapted from https://stackoverflow.com/questions/19385639/duplicate-items-in-legend-in-matplotlib
+def legend_without_duplicate_labels(ax):
+    handles, labels = ax.get_legend_handles_labels()
+    unique = [(h, l) for i, (h, l) in enumerate(zip(handles, labels)) if l not in labels[:i]]
+    ax.legend(*zip(*unique))
 
 
 if __name__ == "__main__":

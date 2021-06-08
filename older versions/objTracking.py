@@ -7,7 +7,7 @@
 '''
 
 import cv2
-from Detector import detect
+from deprecated_files.Detector import detect
 from KalmanFilter import KalmanFilter
 
 def main():

@@ -1,3 +1,11 @@
+'''
+    Author        : Luca Lit
+    File Purpose  : Defining the Object Class
+    Last edited   : 06/08/2021
+    Description   : Creating a class which represents an obstacle / object
+                    Parameters of the object include: velocity, angle of rotation, change in rotation over time, acceleration, start pos X and Y
+'''
+
 # object class
 import numpy as np
 import math
@@ -11,15 +19,18 @@ class Object:
        self.x = start_pos_x
        self.y = start_pos_y
 
+    # function which moves the object by certain velocity and rotation in one timeframe delta_t
     def move(self, delta_t):
         self.theta = self.theta + (self.omega * delta_t)
         self.velocity = self.velocity + (self.acceleration * delta_t)
         self.x = self.x + (self.velocity * math.cos(self.theta))
         self.y = self.y + (self.velocity * math.sin(self.theta))
 
+    # returns position of object
     def position(self):
         return (self.x, self.y)
 
+    # returns the rotation of the object
     def gettheta(self):
         return self.theta
 
