@@ -10,10 +10,12 @@ This codebase generates a simulation of multiple-obstacle tracking and predictio
 **Current state:** handling linear + non-linear motion with acceleration and angular velocity
 
 ### Important files:
+```
 ├── common			
 │   ├── KalmanFilter.py
 │   ├── objTrackingv3_multiobs.py
 │   ├── object.py
+```
 
 ## Simulation:
 - The following simulation shows a side by side plot of 2 obstacles A, B and the Autonomous Surface Vehicle (ASV) moving in the same locality.
